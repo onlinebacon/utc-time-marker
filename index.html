@@ -1,0 +1,36 @@
+<style type="text/css">
+	body {
+		background-color: #000;
+		color: #333;
+		font-family: monospace;
+		font-size: 20px;
+		text-align: center;
+		margin: 20px 0px;
+	}
+	.log {
+		color: #273;
+		margin-bottom: 10px;
+	}
+</style>
+<div id="logs">
+	<div class="log"></div>
+</div>
+<div id="current"></div>
+<script type="text/javascript">
+	let divCurrent = document.querySelector('#current');
+	let divLogs = document.querySelector('#logs');
+	let time = '';
+	const update = () => {
+		time = new Date().toISOString().replace(/[TZ]/g, ' ') + 'UTC';
+		divCurrent.innerText = time;
+	};
+	setInterval(update, 0);
+	const record = () => {
+		const log = document.createElement('div');
+		log.setAttribute('class', 'log');
+		log.innerText = time;
+		divLogs.appendChild(log);
+	};
+	document.body.addEventListener('touchstart', record);
+	document.body.addEventListener('mousedown', record);
+</script>
