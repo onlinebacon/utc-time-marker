@@ -30,9 +30,37 @@
 				background-color: #1c1c1c;
 				border: 1px solid #333;
 				border-radius: 5px;
+				cursor: pointer;
 			}
 			#mark {
 				height: 300px;
+			}
+			#theme {
+				position: fixed;
+				left: 10px;
+				bottom: 10px;
+				background-color: #111;
+				border: 1px solid #333;
+				padding: 5px 10px;
+				border-radius: 5px;
+				color: #aaa;
+				opacity: 0.5;
+				cursor: pointer;
+			}
+			body.bright {
+				background-color: #fff;
+				color: #aaa;
+			}
+			body.bright .log {
+				color: #000;
+			}
+			body.bright input[type="button"] {
+				background-color: #ccc;
+			}
+			body.bright #theme {
+				background-color: #ccc;
+				color: #000;
+				border-color: #777;
 			}
 		</style>
 	</head>
@@ -41,11 +69,12 @@
 		<div><input type="button" id="mark" value="Mark"></div>
 		<div id="logs"></div>
 		<div id="current"></div>
+		<div id="theme">Toggle theme</div>
 	</body>
 </html>
 <script type="text/javascript">
-	let divCurrent = document.querySelector('#current');
-	let divLogs = document.querySelector('#logs');
+	const divCurrent = document.querySelector('#current');
+	const divLogs = document.querySelector('#logs');
 	let time = '';
 	const update = () => {
 		time = new Date().toISOString().replace(/[TZ]/g, ' ') + 'UTC';
@@ -60,4 +89,12 @@
 	};
 	document.querySelector('#mark').onmousedown = record;
 	document.querySelector('#reset').onmousedown = () => divLogs.innerHTML = '';
+	document.querySelector('#theme').onclick = () => {
+		const str = document.body.getAttribute('class') ?? '';
+		if (!str) {
+			document.body.setAttribute('class', 'bright');
+		} else {
+			document.body.removeAttribute('class');
+		}
+	};
 </script>
